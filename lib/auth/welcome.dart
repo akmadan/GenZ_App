@@ -1,5 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:genz/auth/login.dart';
+import 'package:genz/auth/register.dart';
 import 'package:genz/utils/colors.dart';
 import 'package:genz/utils/text.dart';
 
@@ -17,12 +19,12 @@ class _WelcomeState extends State<Welcome> {
     var w = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Colors.black,
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
                 colorFilter: new ColorFilter.mode(
-                    AppColors.primary.withOpacity(0.2), BlendMode.dstATop),
+                    Colors.white.withOpacity(0.2), BlendMode.dstATop),
                 image: AssetImage('assets/bg.jpg'),
                 fit: BoxFit.cover)),
         height: h,
@@ -30,13 +32,6 @@ class _WelcomeState extends State<Welcome> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            // Container(
-            //   padding: EdgeInsets.all(20),
-            //   child: Image.asset(
-            //     'assets/op10.png',
-            //     fit: BoxFit.contain,
-            //   ),
-            // ),
             SizedBox(height: 10),
             Container(
               width: w,
@@ -50,6 +45,7 @@ class _WelcomeState extends State<Welcome> {
                         TypewriterAnimatedText(
                           'Welcome Back!',
                           textStyle: const TextStyle(
+                            color: Colors.white,
                             fontSize: 34,
                             fontWeight: FontWeight.bold,
                           ),
@@ -102,29 +98,33 @@ class _WelcomeState extends State<Welcome> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  Container(
-                    height: 54,
-                    width: w,
-                    margin: EdgeInsets.only(
-                      left: 20,
-                      right: 20,
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Register()));
+                    },
+                    child: Container(
+                      height: 54,
+                      width: w,
+                      margin: EdgeInsets.only(
+                        left: 20,
+                        right: 20,
+                      ),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(16)),
+                      child: Center(
+                          child: bold_text(
+                        text: 'Create an Account',
+                        color: Colors.white,
+                        size: 18,
+                      )),
                     ),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white),
-                        borderRadius: BorderRadius.circular(16)),
-                    child: Center(
-                        child: bold_text(
-                      text: 'Create an Account',
-                      color: Colors.white,
-                      size: 18,
-                    )),
                   ),
                   TextButton(
                       onPressed: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => Authform()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Login()));
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

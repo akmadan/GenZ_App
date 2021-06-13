@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       home: Welcome(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          brightness: Brightness.dark, primaryColor: AppColors.primary),
+          brightness: Brightness.light, primaryColor: AppColors.primary),
     );
   }
 }
