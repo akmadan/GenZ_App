@@ -11,7 +11,7 @@ class modified_text extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Text(text, style: GoogleFonts.roboto(fontSize: size, color: color));
+    return Text(text, style: GoogleFonts.rubik(fontSize: size, color: color));
   }
 }
 
@@ -26,7 +26,7 @@ class bold_text extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(text,
-        style: GoogleFonts.roboto(
+        style: GoogleFonts.rubik(
             fontSize: size, fontWeight: FontWeight.bold, color: color));
   }
 }

@@ -19,12 +19,13 @@ class _WelcomeState extends State<Welcome> {
     var w = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.primary,
       body: Container(
         decoration: BoxDecoration(
+            color: AppColors.primary,
             image: DecorationImage(
                 colorFilter: new ColorFilter.mode(
-                    Colors.white.withOpacity(0.2), BlendMode.dstATop),
+                    AppColors.primary.withOpacity(0.2), BlendMode.dstATop),
                 image: AssetImage('assets/bg.jpg'),
                 fit: BoxFit.cover)),
         height: h,

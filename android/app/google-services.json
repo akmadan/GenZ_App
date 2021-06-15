@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "375373498780",
+    "project_id": "genz-fe06f",
+    "storage_bucket": "genz-fe06f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375373498780:android:db2f7571233cf284142059",
+        "android_client_info": {
+          "package_name": "com.company.genz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "375373498780-mdhcn4u4t3pg12h09d440mnfds24nsci.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFMP5A1o8uD9ze5jcDGt_FxwVvEf9KTkA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "375373498780-mdhcn4u4t3pg12h09d440mnfds24nsci.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

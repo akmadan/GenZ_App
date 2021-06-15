@@ -1,88 +1,156 @@
 import 'package:flutter/material.dart';
 import 'package:genz/utils/colors.dart';
 
-class HeaderPainter extends CustomPainter {
+class TopRight extends CustomClipper<Path> {
   @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint();
+  Path getClip(Size size) {
     Path path = Path();
-
-    // Path number 1
-
-    paint.color = AppColors.primary;
-    path = Path();
-    path.lineTo(0, size.height);
-    path.cubicTo(size.width * 0.09, size.height * 0.83, size.width * 0.11,
-        size.height * 0.78, size.width * 0.11, size.height * 0.66);
-    path.cubicTo(size.width * 0.11, size.height * 0.49, size.width * 0.16,
-        size.height * 0.37, size.width / 4, size.height * 0.28);
-    path.cubicTo(size.width * 0.36, size.height * 0.23, size.width * 0.54,
-        size.height * 0.18, size.width * 0.68, size.height * 0.16);
-    path.cubicTo(size.width * 0.81, size.height * 0.13, size.width * 0.89,
-        size.height * 0.07, size.width * 0.98, 0);
+    final double _xScaling = size.width / 414;
+    final double _yScaling = size.height / 896;
+    path.lineTo(409 * _xScaling, 142.5 * _yScaling);
     path.cubicTo(
-        size.width * 0.94, 0, size.width * 0.86, 0, size.width * 0.84, 0);
-    path.cubicTo(size.width * 0.56, 0, size.width * 0.28, 0, 0, 0);
-    path.cubicTo(0, 0, 0, size.height, 0, size.height);
-    canvas.drawPath(path, paint);
+      386.2 * _xScaling,
+      51.7 * _yScaling,
+      127.5 * _xScaling,
+      10 * _yScaling,
+      1 * _xScaling,
+      0.5 * _yScaling,
+    );
+    path.cubicTo(
+      1 * _xScaling,
+      0.5 * _yScaling,
+      409 * _xScaling,
+      0.5 * _yScaling,
+      409 * _xScaling,
+      0.5 * _yScaling,
+    );
+    path.cubicTo(
+      409 * _xScaling,
+      0.5 * _yScaling,
+      409 * _xScaling,
+      142.5 * _yScaling,
+      409 * _xScaling,
+      142.5 * _yScaling,
+    );
+    path.cubicTo(
+      409 * _xScaling,
+      142.5 * _yScaling,
+      409 * _xScaling,
+      142.5 * _yScaling,
+      409 * _xScaling,
+      142.5 * _yScaling,
+    );
+    return path;
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return true;
-  }
+  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }
 
-class FooterPainter extends CustomPainter {
+class TopCenter extends CustomClipper<Path> {
   @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint();
+  Path getClip(Size size) {
     Path path = Path();
-
-    paint.color = AppColors.primary.withOpacity(1);
-    path = Path();
-    path.lineTo(size.width, size.height / 5);
-    path.cubicTo(size.width, size.height / 5, size.width * 0.94,
-        size.height * 0.88, size.width * 0.65, size.height * 0.93);
-    path.cubicTo(size.width * 0.36, size.height * 0.97, size.width / 5,
-        size.height, size.width / 5, size.height);
-    path.cubicTo(size.width / 5, size.height, size.width, size.height,
-        size.width, size.height);
-    path.cubicTo(size.width, size.height, size.width, size.height / 5,
-        size.width, size.height / 5);
-    canvas.drawPath(path, paint);
+    final double _xScaling = size.width / 414;
+    final double _yScaling = size.height / 896;
+    path.lineTo(199.921 * _xScaling, 134.913 * _yScaling);
+    path.cubicTo(
+      122.203 * _xScaling,
+      200.869 * _yScaling,
+      34.9245 * _xScaling,
+      186.379 * _yScaling,
+      1 * _xScaling,
+      170.889 * _yScaling,
+    );
+    path.cubicTo(
+      1 * _xScaling,
+      170.889 * _yScaling,
+      1 * _xScaling,
+      1 * _yScaling,
+      1 * _xScaling,
+      1 * _yScaling,
+    );
+    path.cubicTo(
+      1 * _xScaling,
+      1 * _yScaling,
+      423 * _xScaling,
+      1 * _yScaling,
+      423 * _xScaling,
+      1 * _yScaling,
+    );
+    path.cubicTo(
+      423 * _xScaling,
+      1 * _yScaling,
+      423 * _xScaling,
+      66.4572 * _yScaling,
+      423 * _xScaling,
+      66.4572 * _yScaling,
+    );
+    path.cubicTo(
+      381.023 * _xScaling,
+      61.7936 * _yScaling,
+      277.639 * _xScaling,
+      68.9556 * _yScaling,
+      199.921 * _xScaling,
+      134.913 * _yScaling,
+    );
+    path.cubicTo(
+      199.921 * _xScaling,
+      134.913 * _yScaling,
+      199.921 * _xScaling,
+      134.913 * _yScaling,
+      199.921 * _xScaling,
+      134.913 * _yScaling,
+    );
+    return path;
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return true;
-  }
+  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }
 
-class MyPainter extends CustomPainter {
+class BottomLeft extends CustomClipper<Path> {
   @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint();
+  Path getClip(Size size) {
     Path path = Path();
-
-    // Path number 1
-
-    paint.color = AppColors.primary;
-    path = Path();
-    path.lineTo(size.width, size.height * 1.8);
+    final double _xScaling = size.width / 414;
+    final double _yScaling = size.height / 896;
+    path.lineTo(413.5 * _xScaling, 1.5 * _yScaling);
     path.cubicTo(
-        0, size.height * 1.8, 0, size.height * 2.8, 0, size.height * 2.8);
-    path.cubicTo(0, size.height * 2.8, size.width, size.height * 2.79,
-        size.width, size.height * 2.79);
-    path.cubicTo(size.width * 0.43, size.height * 2.77, size.width * 0.1,
-        size.height * 2.44, 0, size.height * 1.8);
+      342.3 * _xScaling,
+      82.3 * _yScaling,
+      108.5 * _xScaling,
+      109.833 * _yScaling,
+      0.5 * _xScaling,
+      113.5 * _yScaling,
+    );
     path.cubicTo(
-        0, size.height * 1.8, 0, size.height * 1.8, 0, size.height * 1.8);
-    canvas.drawPath(path, paint);
+      0.5 * _xScaling,
+      113.5 * _yScaling,
+      413.5 * _xScaling,
+      113.5 * _yScaling,
+      413.5 * _xScaling,
+      113.5 * _yScaling,
+    );
+    path.cubicTo(
+      413.5 * _xScaling,
+      113.5 * _yScaling,
+      413.5 * _xScaling,
+      1.5 * _yScaling,
+      413.5 * _xScaling,
+      1.5 * _yScaling,
+    );
+    path.cubicTo(
+      413.5 * _xScaling,
+      1.5 * _yScaling,
+      413.5 * _xScaling,
+      1.5 * _yScaling,
+      413.5 * _xScaling,
+      1.5 * _yScaling,
+    );
+    return path;
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return true;
-  }
+  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }
