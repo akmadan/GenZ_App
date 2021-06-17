@@ -17,6 +17,7 @@ class _AddJobState extends State<AddJob> {
   TextEditingController descriptioncontroller = TextEditingController();
   String dropdownValue = 'Marketing';
   TextEditingController salarycontroller = TextEditingController();
+  DateTime deadline = DateTime.now();
   //_____________________________________________________________
   postjob() async {
     Fluttertoast.showToast(msg: 'Posting Your Job');
@@ -33,7 +34,14 @@ class _AddJobState extends State<AddJob> {
       'title': titlecontroller.text,
       'description': descriptioncontroller.text,
       'salary': salarycontroller.text,
-      'field': dropdownValue
+      'field': dropdownValue,
+      'deadline': 'Pick a Date' +
+          '-' +
+          deadline.day.toString() +
+          '/' +
+          deadline.month.toString() +
+          '/' +
+          deadline.year.toString()
     });
     await FirebaseFirestore.instance
         .collection('jobs')
@@ -45,8 +53,26 @@ class _AddJobState extends State<AddJob> {
       'title': titlecontroller.text,
       'description': descriptioncontroller.text,
       'salary': salarycontroller.text,
-      'field': dropdownValue
+      'field': dropdownValue,
+      'deadline': deadline.day.toString() +
+          '/' +
+          deadline.month.toString() +
+          '/' +
+          deadline.year.toString()
     });
+  }
+
+  _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: deadline, // Refer step 1
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+    );
+    if (picked != null && picked != deadline)
+      setState(() {
+        deadline = picked;
+      });
   }
 
   //_____________________________________________________________
@@ -106,6 +132,31 @@ class _AddJobState extends State<AddJob> {
                     color: Colors.grey.shade600,
                   ),
                   hintText: "eg. 500"),
+            ),
+            SizedBox(height: 20),
+            modified_text(
+                text: 'Add Deadline', size: 16, color: Colors.grey.shade900),
+            InkWell(
+              onTap: () => _selectDate(context),
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border(bottom: BorderSide(color: Colors.black))),
+                padding: EdgeInsets.all(5),
+                height: 55,
+                // color: Colors.red, height: 50,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Pick a Date' +
+                          '-' +
+                          deadline.day.toString() +
+                          '/' +
+                          deadline.month.toString() +
+                          '/' +
+                          deadline.year.toString()),
+                      Icon(Icons.date_range)
+                    ]),
+              ),
             ),
             SizedBox(height: 20),
             modified_text(

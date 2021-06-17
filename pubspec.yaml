@@ -29,6 +29,7 @@ dependencies:
   cloud_firestore:
   firebase_core:
   fluttertoast:
+  cached_network_image:
   
 
 

@@ -7,9 +7,6 @@ import 'package:genz/pages/home.dart';
 import 'package:genz/utils/colors.dart';
 
 void main() async {
-  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-  //   statusBarColor: Colors.transparent,
-  // ));
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(new MyApp());
