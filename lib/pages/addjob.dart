@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:genz/utils/colors.dart';
 import 'package:genz/utils/text.dart';
 
 class AddJob extends StatefulWidget {
-  const AddJob({Key? key}) : super(key: key);
+  final String uid;
+  const AddJob({Key? key, required this.uid}) : super(key: key);
 
   @override
   _AddJobState createState() => _AddJobState();
@@ -14,12 +17,46 @@ class _AddJobState extends State<AddJob> {
   TextEditingController descriptioncontroller = TextEditingController();
   String dropdownValue = 'Marketing';
   TextEditingController salarycontroller = TextEditingController();
+  //_____________________________________________________________
+  postjob() async {
+    Fluttertoast.showToast(msg: 'Posting Your Job');
+    String time = DateTime.now().toString();
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(widget.uid)
+        .collection('jobs')
+        .doc(time)
+        .set({
+      'uid': widget.uid,
+      'jobid': time + widget.uid,
+      'time': time,
+      'title': titlecontroller.text,
+      'description': descriptioncontroller.text,
+      'salary': salarycontroller.text,
+      'field': dropdownValue
+    });
+    await FirebaseFirestore.instance
+        .collection('jobs')
+        .doc(time + widget.uid)
+        .set({
+      'uid': widget.uid,
+      'jobid': time + widget.uid,
+      'time': time,
+      'title': titlecontroller.text,
+      'description': descriptioncontroller.text,
+      'salary': salarycontroller.text,
+      'field': dropdownValue
+    });
+  }
+
+  //_____________________________________________________________
   @override
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.all(10),
         child: ListView(
           children: [
+            SizedBox(height: 10),
             modified_text(
                 text: 'Add Job Title', size: 16, color: Colors.grey.shade900),
             TextField(
@@ -48,7 +85,7 @@ class _AddJobState extends State<AddJob> {
                     borderSide: BorderSide(color: Colors.grey.shade900),
                   ),
                   suffixIcon: Icon(
-                    Icons.person,
+                    Icons.edit,
                     color: Colors.grey.shade600,
                   ),
                   hintText: 'eg. Job Role'),
@@ -57,6 +94,7 @@ class _AddJobState extends State<AddJob> {
             modified_text(
                 text: 'Enter Salary', size: 16, color: Colors.grey.shade900),
             TextField(
+              keyboardType: TextInputType.number,
               cursorColor: AppColors.primary,
               controller: salarycontroller,
               decoration: InputDecoration(
@@ -64,10 +102,10 @@ class _AddJobState extends State<AddJob> {
                     borderSide: BorderSide(color: Colors.grey.shade900),
                   ),
                   suffixIcon: Icon(
-                    Icons.person,
+                    Icons.attach_money_outlined,
                     color: Colors.grey.shade600,
                   ),
-                  hintText: "eg. "),
+                  hintText: "eg. 500"),
             ),
             SizedBox(height: 20),
             modified_text(
@@ -101,7 +139,26 @@ class _AddJobState extends State<AddJob> {
                   child: Text(value),
                 );
               }).toList(),
-            ))
+            )),
+            SizedBox(height: 20),
+            InkWell(
+              onTap: () {
+                postjob();
+              },
+              child: Container(
+                height: 54,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: AppColors.primary,
+                    borderRadius: BorderRadius.circular(16)),
+                child: Center(
+                    child: bold_text(
+                  text: 'Post a Job',
+                  color: Colors.white,
+                  size: 18,
+                )),
+              ),
+            ),
           ],
         ));
   }

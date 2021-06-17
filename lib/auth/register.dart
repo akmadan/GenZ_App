@@ -47,6 +47,7 @@ class _RegisterState extends State<Register> {
         'firstname': firstname,
         'lastname': lastname,
         'email': email,
+        'uid': credential.user?.uid
       });
       Navigator.of(context).pop();
     } on PlatformException catch (err) {
