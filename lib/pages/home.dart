@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:genz/pages/addjob.dart';
 import 'package:genz/pages/jobs.dart';
+import 'package:genz/pages/profile.dart';
 import 'package:genz/utils/colors.dart';
 import 'package:genz/utils/style.dart';
 import 'package:genz/utils/text.dart';
@@ -19,6 +20,8 @@ class _HomeState extends State<Home> {
   int _selectedIndex = 0;
   final PageController _pageController = PageController();
   String uid = '';
+  String name = '';
+  String email = '';
 
   @override
   void initState() {
@@ -31,11 +34,13 @@ class _HomeState extends State<Home> {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final userid = auth.currentUser!.uid;
 
-    // DocumentSnapshot usersnapshot =
-    //     await FirebaseFirestore.instance.collection('users').doc(userid).get();
+    DocumentSnapshot usersnapshot =
+        await FirebaseFirestore.instance.collection('users').doc(userid).get();
 
     setState(() {
       uid = userid;
+      name = usersnapshot['firstname'] + usersnapshot['lastname'];
+      email = usersnapshot['email'];
     });
   }
 
@@ -68,7 +73,7 @@ class _HomeState extends State<Home> {
             children: [
               Jobs(),
               AddJob(uid: uid),
-              AddJob(uid: uid),
+              Profile(uid: uid, name: name, email: email),
             ],
           ),
         ),
