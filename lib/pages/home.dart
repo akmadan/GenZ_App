@@ -25,7 +25,6 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getuserdata();
   }
@@ -71,7 +70,9 @@ class _HomeState extends State<Home> {
           ),
           body: TabBarView(
             children: [
-              Jobs(),
+              Jobs(
+                uid: uid,
+              ),
               AddJob(uid: uid),
               Profile(uid: uid, name: name, email: email),
             ],

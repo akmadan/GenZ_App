@@ -1,5 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:genz/pages/myjobs.dart';
 import 'package:genz/utils/text.dart';
+
+import 'addresume.dart';
 
 class Profile extends StatefulWidget {
   final String uid, name, email;
@@ -66,83 +70,111 @@ class _ProfileState extends State<Profile> {
         Container(
           child: Column(
             children: [
-              Container(
-                  padding: EdgeInsets.all(20),
-                  height: 80,
-                  decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
-                      border: Border(
-                          bottom: BorderSide(color: Colors.grey.shade300))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      modified_text(
-                          text: 'Applied Jobs',
-                          size: 18,
-                          color: Colors.grey.shade900),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        size: 20,
-                      )
-                    ],
-                  )),
-              Container(
-                  padding: EdgeInsets.all(20),
-                  height: 80,
-                  decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
-                      border: Border(
-                          bottom: BorderSide(color: Colors.grey.shade300))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      modified_text(
-                          text: 'My Resume',
-                          size: 18,
-                          color: Colors.grey.shade900),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        size: 20,
-                      )
-                    ],
-                  )),
-              Container(
-                  padding: EdgeInsets.all(20),
-                  height: 80,
-                  decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
-                      border: Border(
-                          bottom: BorderSide(color: Colors.grey.shade300))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      modified_text(
-                          text: 'My Jobs',
-                          size: 18,
-                          color: Colors.grey.shade900),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        size: 20,
-                      )
-                    ],
-                  )),
-              Container(
-                  padding: EdgeInsets.all(20),
-                  height: 80,
-                  color: Colors.grey.shade200,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      modified_text(
-                          text: 'Logout',
-                          size: 18,
-                          color: Colors.grey.shade900),
-                      Icon(
-                        Icons.exit_to_app_sharp,
-                        size: 20,
-                      )
-                    ],
-                  )),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                    padding: EdgeInsets.all(20),
+                    height: 80,
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade200,
+                        border: Border(
+                            bottom: BorderSide(color: Colors.grey.shade300))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        modified_text(
+                            text: 'Applied Jobs',
+                            size: 18,
+                            color: Colors.grey.shade900),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 20,
+                        )
+                      ],
+                    )),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AddResume(
+                                uid: widget.uid,
+                              )));
+                },
+                child: Container(
+                    padding: EdgeInsets.all(20),
+                    height: 80,
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade200,
+                        border: Border(
+                            bottom: BorderSide(color: Colors.grey.shade300))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        modified_text(
+                            text: 'My Resume',
+                            size: 18,
+                            color: Colors.grey.shade900),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 20,
+                        )
+                      ],
+                    )),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MyJobs(
+                                uid: widget.uid,
+                              )));
+                },
+                child: Container(
+                    padding: EdgeInsets.all(20),
+                    height: 80,
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade200,
+                        border: Border(
+                            bottom: BorderSide(color: Colors.grey.shade300))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        modified_text(
+                            text: 'My Jobs',
+                            size: 18,
+                            color: Colors.grey.shade900),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 20,
+                        )
+                      ],
+                    )),
+              ),
+              InkWell(
+                onTap: () async {
+                  await FirebaseAuth.instance.signOut();
+                },
+                child: Container(
+                    padding: EdgeInsets.all(20),
+                    height: 80,
+                    color: Colors.grey.shade200,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        modified_text(
+                            text: 'Logout',
+                            size: 18,
+                            color: Colors.grey.shade900),
+                        Icon(
+                          Icons.exit_to_app_sharp,
+                          size: 20,
+                        )
+                      ],
+                    )),
+              ),
             ],
           ),
         )

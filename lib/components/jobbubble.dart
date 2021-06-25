@@ -3,16 +3,21 @@ import 'package:genz/utils/colors.dart';
 import 'package:genz/utils/text.dart';
 
 class Jobbubble extends StatelessWidget {
-  final String title, description, field, salary, deadline;
+  final String title, description, field, salary, deadline, jobid;
+  final bool isme;
 
   const Jobbubble(
       {Key? key,
       required this.title,
+      required this.isme,
       required this.description,
       required this.field,
       required this.salary,
-      required this.deadline})
+      required this.deadline,
+      required this.jobid})
       : super(key: key);
+
+  applyjob() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +48,21 @@ class Jobbubble extends StatelessWidget {
             size: 16,
             color: Colors.grey.shade900),
         Divider(),
-        ElevatedButton(
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(AppColors.primary)),
-            onPressed: () {},
-            child:
-                modified_text(text: 'Apply Now', size: 16, color: Colors.white))
+        !isme
+            ? ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(AppColors.primary)),
+                onPressed: () {},
+                child: modified_text(
+                    text: 'Apply Now', size: 16, color: Colors.white))
+            : ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(AppColors.primary)),
+                onPressed: () {},
+                child: modified_text(
+                    text: 'Withdraw', size: 16, color: Colors.white))
       ]),
     );
   }
