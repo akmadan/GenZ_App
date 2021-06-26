@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:genz/pages/applyjob.dart';
 import 'package:genz/utils/colors.dart';
 import 'package:genz/utils/text.dart';
 
@@ -17,8 +18,9 @@ class Jobbubble extends StatelessWidget {
       required this.jobid})
       : super(key: key);
 
-  applyjob() async {
-    
+  applyjob(BuildContext context) async {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ApplyJob()));
   }
 
   @override
@@ -26,7 +28,6 @@ class Jobbubble extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(bottom: 10),
       padding: EdgeInsets.all(15),
-      // height: 210,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.white,
@@ -55,7 +56,9 @@ class Jobbubble extends StatelessWidget {
                 style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all(AppColors.primary)),
-                onPressed: () {},
+                onPressed: () {
+                  applyjob(context);
+                },
                 child: modified_text(
                     text: 'Apply Now', size: 16, color: Colors.white))
             : ElevatedButton(
