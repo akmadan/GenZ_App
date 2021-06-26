@@ -17,7 +17,9 @@ class Jobbubble extends StatelessWidget {
       required this.jobid})
       : super(key: key);
 
-  applyjob() async {}
+  applyjob() async {
+    
+  }
 
   @override
   Widget build(BuildContext context) {

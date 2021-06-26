@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:genz/pages/addjob.dart';
 import 'package:genz/pages/jobs.dart';
 import 'package:genz/pages/profile.dart';
-import 'package:genz/utils/colors.dart';
 import 'package:genz/utils/style.dart';
 import 'package:genz/utils/text.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 class Home extends StatefulWidget {
   @override
@@ -17,8 +16,6 @@ class Home extends StatefulWidget {
 //********************************************** */
 
 class _HomeState extends State<Home> {
-  int _selectedIndex = 0;
-  final PageController _pageController = PageController();
   String uid = '';
   String name = '';
   String email = '';

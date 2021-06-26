@@ -33,6 +33,7 @@ dependencies:
   file_picker:
   firebase_storage:
   open_file:
+  sounds:
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:genz/components/components.dart';
+import 'package:genz/functions/uploadresume.dart';
 import 'package:genz/pages/myjobs.dart';
 import 'package:genz/utils/text.dart';
-
-import 'addresume.dart';
 
 class Profile extends StatefulWidget {
   final String uid, name, email;
@@ -20,53 +20,10 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Container(
       child: Column(children: [
-        Container(
-          padding: EdgeInsets.all(10),
-          height: 150,
-          // color: Colors.red,
-          child: Row(
-            children: [
-              CircleAvatar(
-                backgroundImage: NetworkImage(
-                    'https://media.istockphoto.com/photos/smiling-indian-man-looking-at-camera-picture-id1270067126?k=6&m=1270067126&s=170667a&w=0&h=jZlPpqOQTyShQ59aoGp5UzbLQJnpd5Ci8acoq3LHFlw='),
-                radius: 60,
-              ),
-              SizedBox(width: 15),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    bold_text(
-                        text: widget.name,
-                        size: 20,
-                        color: Colors.grey.shade900),
-                    modified_text(
-                        text: widget.email,
-                        size: 16,
-                        color: Colors.grey.shade800),
-                    modified_text(
-                        text: 'Data Science | ML | Flutter',
-                        size: 14,
-                        color: Colors.grey.shade800),
-                  ],
-                ),
-              ),
-              Container(
-                width: 30,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.edit,
-                    color: Colors.grey.shade800,
-                  ),
-                  onPressed: () {},
-                ),
-              )
-            ],
-          ),
-        ),
+        ProfileInfo(name: widget.name, email: widget.email),
         // Divider(),
         SizedBox(height: 10),
+        //----------------------------BUTTONS------------------------------------
         Container(
           child: Column(
             children: [
@@ -95,12 +52,29 @@ class _ProfileState extends State<Profile> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AddResume(
-                                uid: widget.uid,
-                              )));
+                  showModalBottomSheet<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        height: 200,
+                        color: Colors.grey.shade100,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              ElevatedButton(
+                                child: const Text('Upload Resume'),
+                                onPressed: () async {
+                                  uploadresume(widget.uid);
+                                },
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
                 },
                 child: Container(
                     padding: EdgeInsets.all(20),
