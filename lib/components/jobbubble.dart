@@ -4,7 +4,14 @@ import 'package:genz/utils/colors.dart';
 import 'package:genz/utils/text.dart';
 
 class Jobbubble extends StatelessWidget {
-  final String title, description, field, salary, deadline, jobid;
+  final String title,
+      description,
+      field,
+      salary,
+      deadline,
+      jobid,
+      employeruid,
+      applyeruid;
   final bool isme;
 
   const Jobbubble(
@@ -15,12 +22,20 @@ class Jobbubble extends StatelessWidget {
       required this.field,
       required this.salary,
       required this.deadline,
-      required this.jobid})
+      required this.jobid,
+      required this.employeruid,
+      required this.applyeruid})
       : super(key: key);
 
   applyjob(BuildContext context) async {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ApplyJob()));
+        context,
+        MaterialPageRoute(
+            builder: (context) => ApplyJob(
+                  applyeruid: applyeruid,
+                  employeruid: employeruid,
+                  jobid:jobid
+                )));
   }
 
   @override

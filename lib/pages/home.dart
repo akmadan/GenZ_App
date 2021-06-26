@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:genz/pages/addjob.dart';
 import 'package:genz/pages/jobs.dart';
 import 'package:genz/pages/profile.dart';
+import 'package:genz/utils/colors.dart';
 import 'package:genz/utils/style.dart';
 import 'package:genz/utils/text.dart';
-
 
 class Home extends StatefulWidget {
   @override
@@ -19,10 +19,12 @@ class _HomeState extends State<Home> {
   String uid = '';
   String name = '';
   String email = '';
+  int bottomSelectedIndex = 0;
 
   @override
   void initState() {
     super.initState();
+    pageController = PageController();
     getuserdata();
   }
 
@@ -40,41 +42,79 @@ class _HomeState extends State<Home> {
     });
   }
 
+  List<BottomNavigationBarItem> buildBottomNavBarItems() {
+    return [
+      BottomNavigationBarItem(icon: new Icon(Icons.home), label: 'Jobs'),
+      BottomNavigationBarItem(
+        icon: new Icon(Icons.notifications_none_outlined),
+        label: 'Notifications',
+      ),
+      BottomNavigationBarItem(
+          icon: Icon(Icons.add_box_outlined), label: 'Add Job'),
+      BottomNavigationBarItem(
+          icon: Icon(Icons.bookmark_border_outlined), label: 'Saved'),
+      BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+      // BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+      // BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile')
+    ];
+  }
+
+  PageController pageController = PageController(
+    initialPage: 0,
+    keepPage: true,
+  );
+
+  Widget buildPageView() {
+    return PageView(
+      controller: pageController,
+      onPageChanged: (index) {
+        pageChanged(index);
+      },
+      children: <Widget>[
+        Jobs(
+          uid: uid,
+        ),
+        AddJob(uid: uid),
+
+        Profile(uid: uid, name: name, email: email),
+        // Profile(uid: uid, name: name, email: email),
+        // Profile(uid: uid, name: name, email: email),
+      ],
+    );
+  }
+
+  void pageChanged(int index) {
+    setState(() {
+      bottomSelectedIndex = index;
+    });
+  }
+
+  void bottomTapped(int index) {
+    setState(() {
+      bottomSelectedIndex = index;
+      pageController.animateToPage(index,
+          duration: Duration(milliseconds: 500), curve: Curves.ease);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade300,
-      //********************************************** */
-
-      body: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          backgroundColor: Colors.grey.shade100,
-          appBar: AppBar(
-            bottom: TabBar(
-              labelStyle: TabLabelStyle.thintext,
-              indicatorColor: Colors.white,
-              tabs: [
-                Tab(
-                  icon: Icon(Icons.home),
-                  text: 'Jobs',
-                ),
-                Tab(icon: Icon(Icons.add_box_outlined), text: 'Add Job'),
-                Tab(icon: Icon(Icons.person), text: 'Profile'),
-              ],
-            ),
-            title: bold_text(text: 'GenZ App', size: 20, color: Colors.white),
-          ),
-          body: TabBarView(
-            children: [
-              Jobs(
-                uid: uid,
-              ),
-              AddJob(uid: uid),
-              Profile(uid: uid, name: name, email: email),
-            ],
-          ),
-        ),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.grey.shade100,
+        title: modified_text(text: 'GenZ Jobs', size: 20, color: Colors.black),
+      ),
+      body: buildPageView(),
+      bottomNavigationBar: BottomNavigationBar(
+        showUnselectedLabels: true,
+        unselectedItemColor: Colors.grey.shade600,
+        selectedItemColor: AppColors.primary,
+        currentIndex: bottomSelectedIndex,
+        onTap: (index) {
+          bottomTapped(index);
+        },
+        items: buildBottomNavBarItems(),
       ),
     );
   }

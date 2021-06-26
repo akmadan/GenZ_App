@@ -43,10 +43,11 @@ class _LoginState extends State<Login> {
       if (err.message != null) {
         message = err.message.toString();
       }
-      Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text(message),
-        backgroundColor: Colors.red,
-      ));
+      // Scaffold.of(context).showSnackBar(SnackBar(
+      //   content: Text(message),
+      //   backgroundColor: Colors.red,
+      // )
+      // );
     } catch (err) {
       print(err);
     }

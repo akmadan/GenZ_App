@@ -6,7 +6,7 @@ import 'package:genz/utils/text.dart';
 
 class Jobs extends StatefulWidget {
   final String uid;
-  const Jobs({Key? key,required this.uid}) : super(key: key);
+  const Jobs({Key? key, required this.uid}) : super(key: key);
 
   @override
   _JobsState createState() => _JobsState();
@@ -78,6 +78,8 @@ class _JobsState extends State<Jobs> {
                       Map<String, dynamic> data =
                           document.data() as Map<String, dynamic>;
                       return Jobbubble(
+                        applyeruid: widget.uid,
+                        employeruid: data['uid'],
                         isme: widget.uid == data['uid'] ? true : false,
                         jobid: data['jobid'],
                         title: data['title'],

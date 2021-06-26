@@ -33,6 +33,8 @@ class _MyJobsState extends State<MyJobs> {
                 Map<String, dynamic> data =
                     document.data() as Map<String, dynamic>;
                 return Jobbubble(
+                  employeruid: data['uid'],
+                  applyeruid: widget.uid,
                   isme: true,
                   jobid: data['jobid'],
                   title: data['title'],
