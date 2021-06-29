@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:genz/pages/addjob.dart';
 import 'package:genz/pages/jobs.dart';
 import 'package:genz/pages/profile.dart';
+import 'package:genz/pages/saved.dart';
 import 'package:genz/utils/colors.dart';
 import 'package:genz/utils/style.dart';
 import 'package:genz/utils/text.dart';
@@ -47,7 +48,7 @@ class _HomeState extends State<Home> {
       BottomNavigationBarItem(icon: new Icon(Icons.home), label: 'Jobs'),
       BottomNavigationBarItem(
         icon: new Icon(Icons.notifications_none_outlined),
-        label: 'Notifications',
+        label: 'Notifs',
       ),
       BottomNavigationBarItem(
           icon: Icon(Icons.add_box_outlined), label: 'Add Job'),
@@ -75,6 +76,7 @@ class _HomeState extends State<Home> {
           uid: uid,
         ),
         AddJob(uid: uid),
+        Saved(uid: uid),
 
         Profile(uid: uid, name: name, email: email),
         // Profile(uid: uid, name: name, email: email),
@@ -101,9 +103,16 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         elevation: 0,
-        backgroundColor: Colors.grey.shade100,
-        title: modified_text(text: 'GenZ Jobs', size: 20, color: Colors.black),
+        backgroundColor: AppColors.primary,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            bold_text(text: 'GenZ ', size: 20, color: Colors.white),
+            modified_text(text: 'Jobs', size: 20, color: Colors.white)
+          ],
+        ),
       ),
       body: buildPageView(),
       bottomNavigationBar: BottomNavigationBar(

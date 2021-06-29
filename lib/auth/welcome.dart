@@ -4,6 +4,7 @@ import 'package:genz/auth/login.dart';
 import 'package:genz/auth/register.dart';
 import 'package:genz/utils/colors.dart';
 import 'package:genz/utils/text.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Welcome extends StatefulWidget {
   const Welcome({Key? key}) : super(key: key);
@@ -45,11 +46,10 @@ class _WelcomeState extends State<Welcome> {
                       animatedTexts: [
                         TypewriterAnimatedText(
                           'Welcome Back!',
-                          textStyle: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 34,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          textStyle: GoogleFonts.rubik(
+                              color: Colors.white,
+                              fontSize: 34,
+                              fontWeight: FontWeight.w600),
                           speed: const Duration(milliseconds: 200),
                         ),
                       ],
@@ -65,13 +65,9 @@ class _WelcomeState extends State<Welcome> {
                     // ),
                     SizedBox(height: 20),
                     modified_text(
-                        text: 'Share Your Feelings',
-                        color: Colors.white,
-                        size: 18),
+                        text: 'Find & Apply', color: Colors.white, size: 22),
                     bold_text(
-                        text: 'freely & anonymously',
-                        color: Colors.white,
-                        size: 22)
+                        text: 'For Job Easily.', color: Colors.white, size: 24)
                   ]),
             ),
             SizedBox(height: 30),
@@ -81,7 +77,8 @@ class _WelcomeState extends State<Welcome> {
                     Column(mainAxisAlignment: MainAxisAlignment.end, children: [
                   GestureDetector(
                     onTap: () {
-                      // signInWithGoogle();
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Login()));
                     },
                     child: Container(
                       height: 54,
@@ -92,9 +89,9 @@ class _WelcomeState extends State<Welcome> {
                           borderRadius: BorderRadius.circular(16)),
                       child: Center(
                           child: bold_text(
-                        text: 'Sign in via Google',
+                        text: 'Login',
                         color: Theme.of(context).primaryColor,
-                        size: 18,
+                        size: 20,
                       )),
                     ),
                   ),
@@ -118,26 +115,29 @@ class _WelcomeState extends State<Welcome> {
                           child: bold_text(
                         text: 'Create an Account',
                         color: Colors.white,
-                        size: 18,
+                        size: 20,
                       )),
                     ),
                   ),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Login()));
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          modified_text(
-                              text: 'Already have an account? ',
-                              color: Colors.white,
-                              size: 16),
-                          bold_text(
-                              text: 'Login', color: Colors.white, size: 16)
-                        ],
-                      )),
+                  SizedBox(
+                    height: 20,
+                  )
+                  // TextButton(
+                  //     onPressed: () {
+                  //       Navigator.push(context,
+                  //           MaterialPageRoute(builder: (context) => Login()));
+                  //     },
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: [
+                  //         modified_text(
+                  //             text: 'Already have an account? ',
+                  //             color: Colors.white,
+                  //             size: 16),
+                  //         bold_text(
+                  //             text: 'Login', color: Colors.white, size: 16)
+                  //       ],
+                  //     )),
                 ])),
           ],
         ),

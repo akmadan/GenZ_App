@@ -25,8 +25,7 @@ class ProfileInfo extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                bold_text(
-                    text:name, size: 20, color: Colors.grey.shade900),
+                bold_text(text: name, size: 20, color: Colors.grey.shade900),
                 modified_text(
                     text: email, size: 16, color: Colors.grey.shade800),
                 modified_text(

@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:genz/pages/applyjob.dart';
 import 'package:genz/utils/colors.dart';
 import 'package:genz/utils/text.dart';
@@ -32,10 +34,21 @@ class Jobbubble extends StatelessWidget {
         context,
         MaterialPageRoute(
             builder: (context) => ApplyJob(
-                  applyeruid: applyeruid,
-                  employeruid: employeruid,
-                  jobid:jobid
-                )));
+                applyeruid: applyeruid,
+                employeruid: employeruid,
+                jobid: jobid)));
+  }
+
+  savejob() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(applyeruid)
+        .collection('savedjobs')
+        .doc(jobid)
+        .set({
+      'jobid': jobid,
+    });
+    Fluttertoast.showToast(msg: 'Job Saved');
   }
 
   @override
@@ -66,23 +79,35 @@ class Jobbubble extends StatelessWidget {
             size: 16,
             color: Colors.grey.shade900),
         Divider(),
-        !isme
-            ? ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(AppColors.primary)),
-                onPressed: () {
-                  applyjob(context);
-                },
-                child: modified_text(
-                    text: 'Apply Now', size: 16, color: Colors.white))
-            : ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(AppColors.primary)),
-                onPressed: () {},
-                child: modified_text(
-                    text: 'Withdraw', size: 16, color: Colors.white))
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            !isme
+                ? ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(AppColors.primary)),
+                    onPressed: () {
+                      applyjob(context);
+                    },
+                    child: modified_text(
+                        text: 'Apply Now', size: 16, color: Colors.white))
+                : ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(AppColors.primary)),
+                    onPressed: () {},
+                    child: modified_text(
+                        text: 'Withdraw', size: 16, color: Colors.white)),
+            !isme
+                ? IconButton(
+                    onPressed: () {
+                      savejob();
+                    },
+                    icon: Icon(Icons.bookmark_border_sharp))
+                : Container()
+          ],
+        )
       ]),
     );
   }

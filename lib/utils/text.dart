@@ -27,6 +27,6 @@ class bold_text extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(text,
         style: GoogleFonts.rubik(
-            fontSize: size, fontWeight: FontWeight.bold, color: color));
+            fontSize: size, fontWeight: FontWeight.w600, color: color));
   }
 }
