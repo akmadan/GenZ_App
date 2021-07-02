@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:genz/components/curves.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:genz/utils/colors.dart';
 import 'package:genz/utils/text.dart';
 import 'package:lottie/lottie.dart';
@@ -37,18 +37,18 @@ class _LoginState extends State<Login> {
   final _auth = FirebaseAuth.instance;
   void _submitAuthForm(String email, String password) async {
     try {
+      Fluttertoast.showToast(msg: 'This may take a while');
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       Navigator.of(context).pop();
     } on PlatformException catch (err) {
       var message = 'An error occured';
       if (err.message != null) {
         message = err.message.toString();
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(message),
+          backgroundColor: Colors.red,
+        ));
       }
-      // Scaffold.of(context).showSnackBar(SnackBar(
-      //   content: Text(message),
-      //   backgroundColor: Colors.red,
-      // )
-      // );
     } catch (err) {
       print(err);
     }
@@ -57,8 +57,8 @@ class _LoginState extends State<Login> {
   //--------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+    // var height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       body: Container(
@@ -66,16 +66,15 @@ class _LoginState extends State<Login> {
         children: [
           SizedBox(height: 50),
           Container(
-            height: 300,
-            width: 300,
+            height: width / 1.2,
+            width: width / 1.2,
             padding: EdgeInsets.all(20),
-            child: Lottie.asset('assets/search.json'),
+            child: Lottie.asset('assets/interview1.json'),
           ),
           Form(
             key: _formkey,
             child: Container(
               width: width,
-              // color: Colors.red,
               padding: EdgeInsets.all(20),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

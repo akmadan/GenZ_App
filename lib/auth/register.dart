@@ -2,9 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:genz/components/curves.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:genz/utils/colors.dart';
 import 'package:genz/utils/text.dart';
+import 'package:lottie/lottie.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -37,6 +38,7 @@ class _RegisterState extends State<Register> {
       String firstname, String lastname, String email, String password) async {
     UserCredential credential;
     try {
+      Fluttertoast.showToast(msg: 'This may take a while');
       credential = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
 
@@ -55,7 +57,7 @@ class _RegisterState extends State<Register> {
       if (err.message != null) {
         message = err.message.toString();
       }
-      Scaffold.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(message),
         backgroundColor: Colors.red,
       ));
@@ -67,220 +69,208 @@ class _RegisterState extends State<Register> {
   //--------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
+      backgroundColor: Colors.white,
       body: Container(
           child: Stack(
-        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Align(
-            alignment: Alignment(10, -2),
-            child: ClipPath(
-                clipper: TopRight(),
-                child: Container(
-                  width: width * 0.99,
-                  color: AppColors.primary.withOpacity(0.8),
-                )),
-          ),
-          Align(
-            alignment: Alignment(0, 0),
-            child: ClipPath(
-                clipper: TopCenter(),
-                child: Container(
-                  width: width * 1.5,
-                  color: AppColors.primary.withOpacity(0.8),
-                )),
-          ),
-
           //____________________FORM____________________
-          Positioned(
-            bottom: 150,
-            child: Form(
-              key: _formkey,
-              child: Container(
-                width: width,
-                // color: Colors.red,
+          Container(
+              child: ListView(
+            children: [
+              SizedBox(height: 50),
+              Container(
+                height: width / 1.4,
+                width: width / 1.4,
                 padding: EdgeInsets.all(20),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      bold_text(
-                          text: 'Register',
-                          size: 30,
-                          color: Colors.grey.shade900),
-                      SizedBox(height: 20),
-                      Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(32),
-                        ),
-                        //____________________FIRST NAME____________________
-                        child: Center(
-                          child: TextFormField(
-                            key: ValueKey('firstname'),
-                            cursorColor: AppColors.primary,
-                            decoration: InputDecoration(
-                              hintStyle: TextStyle(fontSize: 17),
-                              hintText: 'Enter First Name',
-                              suffixIcon: Icon(
-                                Icons.person,
-                                color: Colors.grey.shade800,
-                              ),
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 5),
-                            ),
-                            validator: (value) {
-                              if (value.toString().isEmpty) {
-                                return 'First Name should not be empty';
-                              }
-
-                              return null;
-                            },
-                            onSaved: (value) {
-                              firstname = value.toString();
-                            },
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(32),
-                        ),
-                        //____________________LAST NAME____________________
-                        child: Center(
-                          child: TextFormField(
-                            key: ValueKey('lastname'),
-                            cursorColor: AppColors.primary,
-                            decoration: InputDecoration(
-                              hintStyle: TextStyle(fontSize: 17),
-                              hintText: 'Enter Last Name',
-                              suffixIcon: Icon(
-                                Icons.person,
-                                color: Colors.grey.shade800,
-                              ),
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 5),
-                            ),
-                            validator: (value) {
-                              if (value.toString().isEmpty) {
-                                return 'Last Name should not be empty';
-                              }
-
-                              return null;
-                            },
-                            onSaved: (value) {
-                              lastname = value.toString();
-                            },
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Divider(),
-                      SizedBox(height: 10),
-                      Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(32),
-                        ),
-                        //__________________EMAIL_______________________
-                        child: Center(
-                          child: TextFormField(
-                            key: ValueKey('email'),
-                            cursorColor: AppColors.primary,
-                            decoration: InputDecoration(
-                              hintStyle: TextStyle(fontSize: 17),
-                              hintText: 'Enter Email Address',
-                              suffixIcon: Icon(
-                                Icons.mail,
-                                color: Colors.grey.shade800,
-                              ),
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 5),
-                            ),
-                            validator: (value) {
-                              if (value.toString().isEmpty) {
-                                return 'Email should not be empty';
-                              }
-
-                              return null;
-                            },
-                            onSaved: (value) {
-                              email = value.toString();
-                            },
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(32),
-                        ),
-                        //______________________PASSWORD_____________________
-                        child: Center(
-                          child: TextFormField(
-                            obscureText: true,
-                            key: ValueKey('password'),
-                            cursorColor: AppColors.primary,
-                            decoration: InputDecoration(
-                              hintStyle: TextStyle(fontSize: 17),
-                              hintText: 'Enter Password',
-                              suffixIcon: Icon(
-                                Icons.security,
-                                color: Colors.grey.shade800,
-                              ),
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 5),
-                            ),
-                            validator: (value) {
-                              if (value.toString().isEmpty) {
-                                return 'Password should not be empty';
-                              }
-
-                              return null;
-                            },
-                            onSaved: (value) {
-                              password = value.toString();
-                            },
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      InkWell(
-                        onTap: () {
-                          trysubmit();
-                        },
-                        child: Container(
-                          height: 54,
-                          width: double.infinity,
-                          // margin: EdgeInsets.only(left: 20, right: 20),
-                          decoration: BoxDecoration(
-                              color: AppColors.primary,
-                              borderRadius: BorderRadius.circular(16)),
-                          child: Center(
-                              child: bold_text(
-                            text: 'Register',
-                            color: Colors.white,
-                            size: 18,
-                          )),
-                        ),
-                      ),
-                    ]),
+                child: Lottie.asset('assets/interview2.json'),
               ),
-            ),
-          ),
+              Form(
+                key: _formkey,
+                child: Container(
+                  width: width,
+                  // color: Colors.red,
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        bold_text(
+                            text: 'Register',
+                            size: 30,
+                            color: Colors.grey.shade900),
+                        SizedBox(height: 20),
+                        Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: AppColors.lighgrey,
+                            borderRadius: BorderRadius.circular(32),
+                          ),
+                          //____________________FIRST NAME____________________
+                          child: Center(
+                            child: TextFormField(
+                              key: ValueKey('firstname'),
+                              cursorColor: AppColors.primary,
+                              decoration: InputDecoration(
+                                hintStyle: TextStyle(fontSize: 17),
+                                hintText: 'Enter First Name',
+                                suffixIcon: Icon(
+                                  Icons.person,
+                                  color: Colors.grey.shade800,
+                                ),
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 5),
+                              ),
+                              validator: (value) {
+                                if (value.toString().isEmpty) {
+                                  return 'First Name should not be empty';
+                                }
+
+                                return null;
+                              },
+                              onSaved: (value) {
+                                firstname = value.toString();
+                              },
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: AppColors.lighgrey,
+                            borderRadius: BorderRadius.circular(32),
+                          ),
+                          //____________________LAST NAME____________________
+                          child: Center(
+                            child: TextFormField(
+                              key: ValueKey('lastname'),
+                              cursorColor: AppColors.primary,
+                              decoration: InputDecoration(
+                                hintStyle: TextStyle(fontSize: 17),
+                                hintText: 'Enter Last Name',
+                                suffixIcon: Icon(
+                                  Icons.person,
+                                  color: Colors.grey.shade800,
+                                ),
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 5),
+                              ),
+                              validator: (value) {
+                                if (value.toString().isEmpty) {
+                                  return 'Last Name should not be empty';
+                                }
+
+                                return null;
+                              },
+                              onSaved: (value) {
+                                lastname = value.toString();
+                              },
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Divider(),
+                        SizedBox(height: 10),
+                        Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: AppColors.lighgrey,
+                            borderRadius: BorderRadius.circular(32),
+                          ),
+                          //__________________EMAIL_______________________
+                          child: Center(
+                            child: TextFormField(
+                              key: ValueKey('email'),
+                              cursorColor: AppColors.primary,
+                              decoration: InputDecoration(
+                                hintStyle: TextStyle(fontSize: 17),
+                                hintText: 'Enter Email Address',
+                                suffixIcon: Icon(
+                                  Icons.mail,
+                                  color: Colors.grey.shade800,
+                                ),
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 5),
+                              ),
+                              validator: (value) {
+                                if (value.toString().isEmpty) {
+                                  return 'Email should not be empty';
+                                }
+
+                                return null;
+                              },
+                              onSaved: (value) {
+                                email = value.toString();
+                              },
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: AppColors.lighgrey,
+                            borderRadius: BorderRadius.circular(32),
+                          ),
+                          //______________________PASSWORD_____________________
+                          child: Center(
+                            child: TextFormField(
+                              obscureText: true,
+                              key: ValueKey('password'),
+                              cursorColor: AppColors.primary,
+                              decoration: InputDecoration(
+                                hintStyle: TextStyle(fontSize: 17),
+                                hintText: 'Enter Password',
+                                suffixIcon: Icon(
+                                  Icons.security,
+                                  color: Colors.grey.shade800,
+                                ),
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 5),
+                              ),
+                              validator: (value) {
+                                if (value.toString().isEmpty) {
+                                  return 'Password should not be empty';
+                                }
+
+                                return null;
+                              },
+                              onSaved: (value) {
+                                password = value.toString();
+                              },
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        InkWell(
+                          onTap: () {
+                            trysubmit();
+                          },
+                          child: Container(
+                            height: 54,
+                            width: double.infinity,
+                            // margin: EdgeInsets.only(left: 20, right: 20),
+                            decoration: BoxDecoration(
+                                color: AppColors.primary,
+                                borderRadius: BorderRadius.circular(16)),
+                            child: Center(
+                                child: bold_text(
+                              text: 'Register',
+                              color: Colors.white,
+                              size: 18,
+                            )),
+                          ),
+                        ),
+                      ]),
+                ),
+              ),
+            ],
+          )),
         ],
       )),
     );
